@@ -27,7 +27,6 @@ def parse_args():
         help="Path to directory to save model with a timestamp.")
     return parser.parse_args()
 
-
 if __name__=="__main__":
     args = parse_args()
 

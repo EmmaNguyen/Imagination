@@ -1,6 +1,4 @@
-import torch.nn as nn
-
-class Representation(nn.Module):
+class Representation:
     def __init__(self):
         None
     def forward(self):
@@ -8,7 +6,7 @@ class Representation(nn.Module):
     def sample(self):
         None
 
-class Generator(nn.Module):
+class Generator:
     def __init__(self):
         None
     def forward(self):
@@ -16,7 +14,7 @@ class Generator(nn.Module):
     def sample(self):
         None
 
-class GenerativeQueryNetwork(nn.Module):
+class GenerativeQueryNetwork:
     def __init__(self):
         None
     def forward(self):
