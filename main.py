@@ -30,7 +30,7 @@ def parse_args():
 if __name__=="__main__":
     args = parse_args()
 
-    dataset = ShepardMetzler()
+    dataset = ShepardMetzler(data_path=args.data_path)
     model = GenerativeQueryNetwork()
 
     model_trainer = ModelTrainer(model)
