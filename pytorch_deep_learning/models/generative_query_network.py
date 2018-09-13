@@ -6,14 +6,15 @@ class Representation:
     def sample(self):
         None
 
-class Generator(nn.Module):
+class Generator:
     def __init__(self):
         None
     def forward(self):
         None
     def sample(self):
+        None
 
-class GenerativeQueryNetwork(nn.Module):
+class GenerativeQueryNetwork:
     def __init__(self):
         None
     def forward(self):
