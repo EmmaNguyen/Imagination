@@ -27,6 +27,7 @@ class BatchTrainer:
         return evals
 
     def test_on_batch(self, images, viewpoints):
+        images, viewpoints = images.to(self._device), viewpoints.to(self.viewpoints)
         self.optimizer.zero_grad() #reset gradients
         return self.eval_on_batch(images, viewpoints)
 
