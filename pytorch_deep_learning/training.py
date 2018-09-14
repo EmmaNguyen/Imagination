@@ -1,14 +1,23 @@
+import tqdm
+
+import torch
 from torch.utils.data import DataLoader
 from torch.distributions import Normal
 
+sigma_f, sigma_i = 0.7, 2.0
+mu_f, mu_i = 5*10**(-5), 5*10**(-4)
+
 class BatchTrainer:
-    def __init__(self, model, dataset, optimizer, device=None):
+
+    def __init__(self, model, optimizer, device, sigma, mu):
         self.model_ = model
         self.optimizer = optimizer
-        self._device = device if device else torch.device('cpu')
+        self.sigma = sigma
+        self.mu = mu
+        self._device = device
 
-    def __call__(self, images):
-        return self.eval_on_batch(images)
+    def __call__(self, images, viewpoints):
+        return self.eval_on_batch(images, viewpoints)
 
     def train_on_batch(self, images, viewpoints):
         self.optimizer.zero_grad() #reset gradients
