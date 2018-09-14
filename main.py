@@ -31,7 +31,7 @@ if __name__=="__main__":
     args = parse_args()
 
     dataset = ShepardMetzler(data_path=args.data_path)
-    model = GenerativeQueryNetwork()
+    model = GenerativeQueryNetwork(x_dim=3, v_dim=7, r_dim=256, h_dim=128, z_dim=64, L=12)
 
-    model_trainer = ModelTrainer(model)
-    model_trainer.train()
+    model_trainer = ModelTrainer(model, dataset, device)
+    model_trainer.train(args.iterations)
