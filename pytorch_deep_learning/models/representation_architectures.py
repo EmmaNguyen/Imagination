@@ -15,9 +15,9 @@ class TowerConv8D(nn.Module):
         self.conv4 = nn.Conv2d(out_channels//2, out_channels, \
             kernel_size=2, stride=2)
 
-        self.conv5 = nn.Conv2d(out_channels + view_dim, k, kernel_size=3, \
+        self.conv5 = nn.Conv2d(out_channels + view_dim, out_channels, kernel_size=3, \
             stride=1, padding=1)
-        self.conv6 = nn.Conv2d(out_channels + view_dim, k//2, kernel_size=3, \
+        self.conv6 = nn.Conv2d(out_channels + view_dim, out_channels//2, kernel_size=3, \
             stride=1, padding=1)
         self.conv7 = nn.Conv2d(out_channels//2, out_channels, kernel_size=3, \
             stride=1, padding=1)
@@ -94,4 +94,4 @@ class PyramidConv8D:
         r  = F.relu(self.conv3(r))
         r  = F.relu(self.conv4(r))
 
-        return r    
+        return r
