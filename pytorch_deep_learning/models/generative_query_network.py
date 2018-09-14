@@ -1,8 +1,9 @@
-from representation_architectures import TowerConv8D
-from generative_architectures import AutoEncoderConv2D
+import torch.nn as nn
 
+from .representation_architectures import TowerConv8D
+from .generative_architectures import RecurrentAutoEncoder2D
 
- class GenerativeQueryNetwork(nn.Module):
+class GenerativeQueryNetwork(nn.Module):
     """
     Generative Query Network (GQN) as described
     in "Neural scene representation and rendering"
@@ -19,7 +20,7 @@ from generative_architectures import AutoEncoderConv2D
         super(GenerativeQueryNetwork, self).__init__()
         self.r_dim = r_dim
 
-        self.generator = AutoEncoderConv2D(x_dim, v_dim, r_dim, z_dim, h_dim, L)
+        self.generator = RecurrentAutoEncoder2D(x_dim, v_dim, r_dim, z_dim, h_dim, L)
         self.representation = TowerConv8D(x_dim, v_dim, r_dim, pool=True)
         #self.representation = PyramidRepresentation(x_dim, v_dim, r_dim)
 

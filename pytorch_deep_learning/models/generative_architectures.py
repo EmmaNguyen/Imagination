@@ -2,6 +2,9 @@
 This file includes a set of specific artificial neural networks designed on
 top of Convolution + Recurrent Neural networks (LSTM).
 """
+import torch.nn as nn
+
+SCALE=4
 
 class Conv2dLSTMCell(nn.Module):
     """
