@@ -44,48 +44,43 @@ class BatchTrainer:
                 'representation': representation}
 
 class ModelTrainer(BatchTrainer):
-    def __init__(self, model, dataset, device):
+
+    def __init__(self, model, optimizer, device, dataset, mu=mu_f, sigma=sigma_f):
         super(ModelTrainer, self).__init__()
-        self.model_ = model
-        self.data_loader = DataLoader(dataset, \
-            batch_size=args.batch_size, shuffle=True)
+        self.model = model.to(device)
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.mu)
+        self._device = device
+        self.data_loader = DataLoader(dataset, batch_size=64, shuffle=True)
+        self.mu, self.sigma = mu, sigma
 
-        sigma_f, sigma_i = 0.7, 2.0
-        mu_f, mu_i = 5*10**(-5), 5*10**(-4)
-        mu, sigma = mu_f, sigma_f
+    def should_save_image(self, step, max_gradient_steps, periodic_step=1000):
+        return step % periodic_step == 0
 
-        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=mu)
+    def should_save_checkpoint(self, step, max_gradient_steps, periodic_checkpoint=1000):
+        return (step % periodic_checkpoint == 0) or (step + 1 >= max_gradient_steps)
 
-        None
-    def should_save_image(self, step):
-        return step % 1000 == 0
-
-    def should_save_checkpoint(self, step):
-        return (step % 10000 == 10000) or (step + 1 == self.gradient_steps)
-
-    def anneal_learning_rate(self):
+    def anneal_learning_rate(self, step):
         # Anneal learning rate
-        mu = max(mu_f + (mu_i - mu_f)*(1 - s/(1.6 * 10**6)), mu_f)
-        self.optimizer.lr = mu * math.sqrt(1 - 0.999**s)/(1 - 0.9**s)
+        self.mu = max(mu_f + (mu_i - mu_f)*(1 - step/(1.6 * 10**6)), mu_f)
+        self.optimizer.lr = self.mu * math.sqrt(1 - 0.999**step)/(1 - 0.9**step)
 
-    def anneal_pixel_variance(self):
-        sigma = max(sigma_f + (sigma_i - sigma_f)*(1 - s/(2 * 10**5)), sigma_f)
+    def anneal_pixel_variance(self, step):
+        self.sigma = max(sigma_f + (sigma_i - sigma_f)*(1 - step/(2 * 10**5)), sigma_f)
 
-    def train(self, device):
-        for step in range(self.gradient_steps):
-
+    def train(self, max_gradient_steps):
+        for step in range(max_gradient_steps):
             for image_batch, viewpoint_batch in tqdm(self.data_loader):
                 batch_eval = self.train_on_batch(image_batch, viewpoint_batch)
-                if should_save_checkpoint(step):
+                if should_save_checkpoint(step, max_gradient_steps):
                     torch.save(self.model, "model-{}-{}.pt".format(step,"0T00T00"))
 
             with torch.no_grad():
                 test_image, test_pointview = next(iter(self.data_loader))
                 test_reconstruction, test_representation = self.test_on_batch(test_image, test_pointview)['reconstructions', 'representation']
                 test_representation = test_representation.view(-1, 1, 16, 16)
-                if should_save_image:
+                if should_save_image(step, max_gradient_steps):
                     save_image(test_reconstruction.float(), "reconstruction.jpg")
                     save_image(test_representation.float(), "representation.jpg")
 
-                self.anneal_learning_rate()
-                self.anneal_pixel_variance()
+                self.anneal_learning_rate(step)
+                self.anneal_pixel_variance(step)
