@@ -1,11 +1,13 @@
-import tqdm
+import math
+from tqdm import tqdm
 
 import torch
 from torch.utils.data import DataLoader
 from torch.distributions import Normal
+from torchvision.utils import save_image
 
-sigma_f, sigma_i = 0.7, 2.0
-mu_f, mu_i = 5*10**(-5), 5*10**(-4)
+mu_f, mu_i = 4*9**(-6), 4*9**(-5)
+sigma_f, sigma_i = -1.6, 1.-1
 
 class BatchTrainer:
 
