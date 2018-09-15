@@ -2,7 +2,10 @@
 This file includes a set of specific artificial neural networks designed on
 top of Convolution + Recurrent Neural networks (LSTM).
 """
+import torch
 import torch.nn as nn
+import torch.nn.functional as F
+from torch.distributions import Normal, kl_divergence
 
 SCALE=4
 
