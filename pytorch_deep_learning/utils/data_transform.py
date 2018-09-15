@@ -25,8 +25,8 @@ def vertical_tranverse_rotation(viewpoint):
 
     return viewpoint_hat
 
-class ShepardMetzler
-:
+class ShepardMetzler:
+
     def __init__(self, data_path, transformer=None, target_transformer=None):
         self.data_path = data_path
         self.transformer = transformer
@@ -37,18 +37,20 @@ class ShepardMetzler
 
     def __getitem__(self, file_name):
         byte_file_path = os.path.join(self.data_path, '{}.pt'.format(file_name))
+        # print(byte_file_path)
+        # import pdb; pdb.set_trace()
         data = torch.load(byte_file_path)
 
         to_tensor = lambda byte_image: ToTensor()(Image.open(io.BytesIO(byte_image)))
         images = torch.stack([to_tensor(frame) for frame in data.frames])
 
-        viewpoints = torch.from_numpy(data.camera)
-        viewpoints = viewpoints(-1, 5)  #Hard code?
+        viewpoints = torch.from_numpy(data.cameras)
+        viewpoints = viewpoints.view(-1, 5)  #Hard code?
 
-        if self.transform:
+        if self.transformer:
             images = self.transformer(images)
 
-        if self.target_transform:
+        if self.target_transformer:
             viewpoints =self.target_transformer(viewpoints)
 
         return images, viewpoints
