@@ -25,13 +25,13 @@ def parse_args():
 
     # Note: Confusion between iteration and gradient steps
     parser.add_argument("--iterations", type=int, default=20000, \
-        help="Number of batches to complete one epoch (Default: 20,000).")
+        help="A number of batches to complete one epoch (Default: 20,000).")
     parser.add_argument("--batch_size", type=int, default=36, \
-        help="Number of examples used for one batch.")
+        help="A number of examples used for one batch. (Default: 36)")
     parser.add_argument("--data_path", type=str, default="./data/train", \
-        help="Path to directory of training data ")
+        help="A path to directory of training data ")
     parser.add_argument("--model_path", type=str, default="./model", \
-        help="Path to directory to save model with a timestamp.")
+        help="A path to directory to save a model with a timestamp.")
     return parser.parse_args()
 
 if __name__=="__main__":
