@@ -29,16 +29,14 @@ Pytorch implementation of Neural Scene and rendering
     └── download_data.py
 ```
 
-#### Contribution
-
 ### Dataset
 
 #### Download data - an easy way with one step
 
-Here I provide a one-step preparation for you to (almost) immediately jump into the code. Only make sure that you have a good internet connection and around 2 GB storage.
+Here I provide a one-step preparation for you to (almost) immediately jump into the code. Only make sure that you have a good internet connection and around 2 GB storage (For a full data set, it is 23.68 GB)
 
 ```bash
-$python tool/download_data.py --data_path=<path_to_your_data_directory>
+$python tools/download_data.py --data_path=<path_to_your_data_directory>
 ```
 
 #### Shepard Metzler 7 parts
@@ -55,12 +53,16 @@ Checkout this ! [repository of DeepMind lab] (https://github.com/deepmind/gqn-da
 
 ##### 1. Using virtual environment with `Anaconda`
 
+```bash
+$bash scripts/download_and_setup_anaconda.sh
+```
+
 ##### 2. Using `setuptools`
 
 ### Run the program
 Simply as follows
 ```bash
-python main.py --data_path=<path_to_downloaded_data>
+$python main.py --data_path=<path_to_downloaded_data>
 ```
 
 For further details of arguments, try with `--help`
