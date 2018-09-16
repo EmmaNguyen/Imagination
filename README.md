@@ -4,8 +4,8 @@ Pytorch implementation of Neural Scene and rendering
 
 #### Structure
 ```
-├── docs
-├── jupyter_notebook.ipynb
+.
+├──docs
 ├── main.py
 ├── pytorch_deep_learning
 │   ├── __init__.py
@@ -17,24 +17,15 @@ Pytorch implementation of Neural Scene and rendering
 │   ├── training.py
 │   └── utils
 │       ├── data_transform.py
-│       ├── __init__.py
-│       └── plots.py
-├── README.md
+│       └──__init__.py
+|── README.md
 ├── requirements.txt
-├── scripts
-│   ├── deploy_slurm_jupyter_job_.sh
-│   ├── download_and_setup_anaconda.sh
-│   ├── generate_slurm_sbatch_history.sh
-│   ├── retrieve_slurm_sbatch_command.sh
-│   └── test_deploy_slurm_jupyter_job_.sh
-├── setup.py
 ├── test
 │   ├── __init__.py
 │   ├── test_data_transform.py
 │   ├── test_gpu_setup.py
 │   ├── test_training.py
 │   └── test_unittest.py
-├── third_party
 └── tools
     └── download_data.py
 ```
