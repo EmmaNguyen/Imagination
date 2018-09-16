@@ -24,7 +24,6 @@ Pytorch implementation of Neural Scene and rendering
 │   ├── __init__.py
 │   ├── test_data_transform.py
 │   ├── test_gpu_setup.py
-│   ├── test_training.py
 │   └── test_unittest.py
 └── tools
     └── download_data.py
