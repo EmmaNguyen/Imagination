@@ -49,18 +49,18 @@ Pytorch implementation of Neural Scene and rendering
 
 ### Requirements
 
-#### 1. Using virtual environment with `Ananconda`
+##### 1. Using virtual environment with `Anaconda`
 
-#### 2. Using `setuptools`
+##### 2. Using `setuptools`
 
 ### Run the program
 Simply as follows
-```
+```bash
 python main.py --data_path=<path_to_downloaded_data>
 ```
 
 For further details of arguments, try with `--help`
-```python
+```bash
 
 $python main.py --help                                                                                                                                                                                                                                                   [
 usage: main.py [-h] [--iterations ITERATIONS] [--batch_size BATCH_SIZE]
