@@ -35,7 +35,21 @@ Pytorch implementation of Neural Scene and rendering
 
 #### Download data - an easy way with one step
 
-#### A comprehensive list of all data
+Here I provide a one-step preparation for you to (almost) immediately jump into the code. Only make sure that you have a good internet connection and around 2 GB storage.
+
+```bash
+$python tool/download_data.py --data_path=<path_to_your_data_directory>
+```
+
+#### Shepard Metzler 7 parts
+
+The tiny preprocessed dataset described as above is extracted from Shepard Metzler with 7 parts composed of 7 randomly color cubes in three dimension grid with yaw (vertical axes) and pitch (transverse axes) followed by a position.
+
+(IMAGE)
+
+##### A comprehensive list of 7 datasets available for you to try
+
+Checkout this ! [repository of DeepMind lab] (https://github.com/deepmind/gqn-datasets) for more information. This would require you to install some more packages such as `tensorflow` and `gsutils`. Following the instructions inside, you will be able to download 1.45 TB of raw data in total.  Since this is an implementation of `pytorch`, another extra step needed is converting those into tensor readable by our framework. Try this ! [open-source repository] (https://github.com/l3robot/gqn_datasets_translator)
 
 ### Requirements
 
