@@ -1,5 +1,6 @@
 # Script to download and setup Anaconda for python 3
 # Source: https://medium.com/@GalarnykMichael/install-python-on-ubuntu-anaconda-65623042cb5a
+# Usage: $bash download_and_setup_anaconda.sh
 
 # Go to home directoryi
 cd ~
