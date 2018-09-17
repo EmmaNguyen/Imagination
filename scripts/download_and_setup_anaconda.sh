@@ -3,7 +3,8 @@
 # Usage: $bash download_and_setup_anaconda.sh
 
 # Go to home directoryi
-cd ~
+mkdir third_party
+cd third_party
 
 # You can change what anaconda version you want at
 # https://repo.continuum.io/archive/
