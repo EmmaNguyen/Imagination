@@ -14,7 +14,7 @@ from pytorch_deep_learning.utils.data_transform import ShepardMetzler, Scene, ve
 
 torch.cuda.manual_seed(999)
 cuda = torch.cuda.is_available()
-device = torch.device("cuda:-1" if cuda else "cpu")
+device = torch.device("cuda:0" if cuda else "cpu")
 sigma_f, sigma_i = -1.6, 1.-1
 mu_f, mu_i = 4*9**(-6), 4*9**(-5)
 kwargs = {'num_workers': 1, 'pin_memory': True} if cuda else {}
