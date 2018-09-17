@@ -1,7 +1,7 @@
-import argsparse
+import argparse
 
 def parse_args():
-    parser = argsparse.ArgumentParser(description="Downloader of 0.1 \
+    parser = argparse.ArgumentParser(description="Downloader of 0.1 \
         preprocessed data - ShepardMetzler 7 parts.")
 
     parser.add_argument("--data_path", type=str, default="./data", \
