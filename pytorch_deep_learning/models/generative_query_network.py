@@ -1,3 +1,7 @@
+"""
+Ref. https://github.com/wohlert/generative-query-network-pytorch
+"""
+
 import random
 
 import torch

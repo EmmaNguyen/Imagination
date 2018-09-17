@@ -1,3 +1,6 @@
+"""
+Ref. https://github.com/wohlert/generative-query-network-pytorch
+"""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

@@ -1,6 +1,7 @@
 """
 This file includes a set of specific artificial neural networks designed on
 top of Convolution + Recurrent Neural networks (LSTM).
+Ref. https://github.com/wohlert/generative-query-network-pytorch
 """
 import torch
 import torch.nn as nn
