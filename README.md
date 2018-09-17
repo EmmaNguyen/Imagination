@@ -7,7 +7,7 @@
 
  This is a Pytorch implementation of a vanilla Generative Query Network from "Neural scene representation and rendering", a computer vision system is similar to Recurrent Variational Auto Encoder with two levels of representation learned by Convolutional Neural Network), with to tackle a challenge of object recognization in 3D stimulation world.
 
- **Disclaimer**: In this version (v1), I set a goal to improve the quality of code to do further work on top of it from another [open source project](https://github.com/wohlert/generative-query-network-pytorch)
+ **Disclaimer**: In this version (v1), I set a scope to improve the quality of code by designing modules, clarifying assumptions with refactorization and replication from another [open source project](https://github.com/wohlert/generative-query-network-pytorch). Further work will be probably added and built on top of this repository, not solely generative query network.
 
 (IMAGE)
 
@@ -135,3 +135,5 @@ Some of couple ideas to improve this source code. For example:
 Eslami, SM Ali, et al. "Neural scene representation and rendering." Science 360.6394 (2018): 1204-1210.
 
 Shepard, Roger N. and Joerg Metzler. “Mental rotation of three-dimensional objects.” Science 171 3972 (1971): 701-3.
+
+Another `pytorch` implementation: https://github.com/wohlert/generative-query-network-pytorch
