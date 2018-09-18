@@ -68,7 +68,7 @@ If there is no error, it means you are welcomed to move to the next part.If not,
 
 ##### A comprehensive list of 7 datasets available for you to try
 
-Checkout this ! [repository of DeepMind lab] (https://github.com/deepmind/gqn-datasets) for more information. This would require you to install some more packages such as `tensorflow` and `gsutils`. Following the instructions inside, you will be able to download 1.45 TB of raw data in total.  Since this is an implementation of `pytorch`, another extra step needed is converting those into tensor readable by our framework. Try this ! [open-source repository] (https://github.com/l3robot/gqn_datasets_translator)
+Checkout this ![repository of DeepMind lab](https://github.com/deepmind/gqn-datasets) for more information. This would require you to install some more packages such as `tensorflow` and `gsutils`. Following the instructions inside, you will be able to download 1.45 TB of raw data in total.  Since this is an implementation of `pytorch`, another extra step needed is converting those into tensor readable by our framework. Try this ![open-source repository](https://github.com/l3robot/gqn_datasets_translator)
 
 ### A short guide to a virtual environment with Anaconda
 
@@ -88,8 +88,6 @@ By this command, `anaconda` will run a process of installations for all necessar
 conda activate pytorch_deep_learning
 ```
 
-
-
 ### Run the program
 Warning: This source code is built on top of using one GPU with high memory GPU from 16GB (P100 or M40 for example). Please make sure that you have an appropriate infrastructure for running this source code.
 
@@ -99,6 +97,7 @@ $python main.py --data_path=<path_to_downloaded_data>
 ```
 
 For further details of arguments, try with `--help`
+
 ```bash
 
 $python main.py --help                                                                                                                                                                                                                                                   [
@@ -117,6 +116,10 @@ optional arguments:
   --model_path MODEL_PATH
                         A path to directory to save a model with a timestamp.
 ```
+
+For `--gradient_steps=1000`, expected result should look like
+
+[](./docs/)
 
 ### What's next?
 
