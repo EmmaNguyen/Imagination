@@ -68,7 +68,7 @@ If there is no error, it means you are welcomed to move to the next part.If not,
 
 ##### A comprehensive list of 7 datasets available for you to try
 
-Checkout this ![repository of DeepMind lab](https://github.com/deepmind/gqn-datasets) for more information. This would require you to install some more packages such as `tensorflow` and `gsutils`. Following the instructions inside, you will be able to download 1.45 TB of raw data in total.  Since this is an implementation of `pytorch`, another extra step needed is converting those into tensor readable by our framework. Try this ![open-source repository](https://github.com/l3robot/gqn_datasets_translator)
+Checkout this [repository of DeepMind lab](https://github.com/deepmind/gqn-datasets) for more information. This would require you to install some more packages such as `tensorflow` and `gsutils`. Following the instructions inside, you will be able to download 1.45 TB of raw data in total.  Since this is an implementation of `pytorch`, another extra step needed is converting those into tensor readable by our framework. Try this [open-source repository](https://github.com/l3robot/gqn_datasets_translator)
 
 ### A short guide to a virtual environment with Anaconda
 
@@ -119,7 +119,7 @@ optional arguments:
 
 For `--gradient_steps=1000`, expected result should look like
 
-[](./docs/)
+![](./docs/sample_reconstruction_1000.jpg)
 
 ### What's next?
 
