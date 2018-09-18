@@ -5,12 +5,12 @@ from pytorch_deep_learning.utils import data_transform
 class TestDataTransform(unittest.TestCase):
 
     def test_Shepard_Metzler(self):
-        data_path = "/data/milatmp1/nguthien/emma/EmmaLab/DATA/3D_Scenes/Demo/shepard_metzler_7_parts-torch/train"
-
-        shepard_metzler = data_loader.ShepardMetzler(data_path)
-        self.assertEqual(shepard_metzler.__len__(), 1711)
-
-
+        try:
+            data_path = "./data/small_shepard_metzler_7_parts/train"
+            shepard_metzler = data_loader.ShepardMetzler(data_path)
+            self.assertEqual(shepard_metzler.__len__(), 1711)
+        except:
+            print("Check data path. Make sure that we have the same location!")
 
 if __name__=="__main__":
     unittest.main()
