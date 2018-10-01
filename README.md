@@ -38,6 +38,31 @@
     └── download_data.py
 ```
 
+### A short guide to a virtual environment with Anaconda
+
+Here we create a virtual environment with `Anaconda`, a manager to distribute packages with different versions and dependencies by creating a capsule to include all you need in one folder.
+
+To download and install, type the below into your terminal. It will help you download into and and then set up seamlessly ath `~/home/anaconda`.  orig
+```bash
+$ bash scripts/download_and_setup_anaconda.sh
+```
+To install a virtual environment named "pytorch_deep_learning" for the source code, use the following command.
+```bash
+$ conda env create --file imagination.yml
+```
+
+By this command, `anaconda` will run a process of installations for all necessary packages needed for your computer. Then, to activate the virtual environment, type:
+
+```bash
+$ source activate imagination_py36
+```
+
+To deactivate an environment, simply do
+
+```bash
+$ source deactivate
+```
+
 ### Dataset
 
 #### Download data - an easy way with one step
