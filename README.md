@@ -38,6 +38,31 @@
     └── download_data.py
 ```
 
+### A short guide to a virtual environment with Anaconda
+
+Here we create a virtual environment with `Anaconda`, a manager to distribute packages with different versions and dependencies by creating a capsule to include all you need in one folder.
+
+To download and install, type the below into your terminal. It will help you download into and and then set up seamlessly ath `~/home/anaconda`.  orig
+```bash
+$ bash scripts/download_and_setup_anaconda.sh
+```
+To install a virtual environment named "pytorch_deep_learning" for the source code, use the following command.
+```bash
+$ conda env create --file imagination.yml
+```
+
+By this command, `anaconda` will run a process of installations for all necessary packages needed for your computer. Then, to activate the virtual environment, type:
+
+```bash
+$ source activate imagination_py36
+```
+
+To deactivate an environment, simply do
+
+```bash
+$ source deactivate
+```
+
 ### Dataset
 
 #### Download data - an easy way with one step
@@ -45,7 +70,7 @@
 Here I provide a one-step preparation for you to (almost) immediately jump into the code. Only make sure that you have a good internet connection and around 68MB storage (For a full data set, it is about 24 GB)
 
 ```bash
-$python tools/download_data.py --data_path=<path_to_your_data_directory>
+$ python tools/download_data.py --data_path=<path_to_your_data_directory>
 ```
 
 #### Shepard Metzler 7 parts
@@ -56,12 +81,12 @@ The famous story of this data set comes from an idea of cognitive neuroscience t
 
 (IMAGE)
 ```bash
-bash scripts/download_small_shepard_metzler.sh
+$ bash scripts/download_small_shepard_metzler.sh
 ```
 
 Run this test to make sure that you've got the right data
 ```python
-python -m unittest test.test_download_data
+$ python -m unittest test.test_download_data
 ```
 
 If there is no error, it means you are welcomed to move to the next part.If not, feel free to create an issue and send the log of report to let us know what's wrong with your data.
@@ -70,37 +95,19 @@ If there is no error, it means you are welcomed to move to the next part.If not,
 
 Checkout this [repository of DeepMind lab](https://github.com/deepmind/gqn-datasets) for more information. This would require you to install some more packages such as `tensorflow` and `gsutils`. Following the instructions inside, you will be able to download 1.45 TB of raw data in total.  Since this is an implementation of `pytorch`, another extra step needed is converting those into tensor readable by our framework. Try this [open-source repository](https://github.com/l3robot/gqn_datasets_translator)
 
-### A short guide to a virtual environment with Anaconda
-
-Here we create a virtual environment with `Anaconda`, a manager to distribute packages with different versions and dependencies by creating a capsule to include all you need in one folder.
-
-To download and install, type the below into your terminal. It will help you download into and and then set up seamlessly ath `~/home/anaconda`.  orig
-```bash
-$bash scripts/download_and_setup_anaconda.sh
-```
-To install a virtual environment named "pytorch_deep_learning" for the source code, use the following command.
-```
-conda create --name pytorch_deep_learning -f="environment.yml"
-```
-By this command, `anaconda` will run a process of installations for all necessary packages needed for your computer. Then, use this
-
-```
-conda activate pytorch_deep_learning
-```
-
 ### Run the program
 Warning: This source code is built on top of using one GPU with high memory GPU from 16GB (P100 or M40 for example). Please make sure that you have an appropriate infrastructure for running this source code.
 
 To get started, simply open your terminal and type the following command line
 ```bash
-$python main.py --data_path=<path_to_downloaded_data>
+$ python main.py --data_path=<path_to_downloaded_data>
 ```
 
 For further details of arguments, try with `--help`
 
 ```bash
 
-$python main.py --help                                                                                                                                                                                                                                                   [
+$ python main.py --help                                                                                                                                                                                                                                                   [
 usage: main.py [-h] [--iterations ITERATIONS] [--batch_size BATCH_SIZE]
                [--data_path DATA_PATH] [--model_path MODEL_PATH]
 
