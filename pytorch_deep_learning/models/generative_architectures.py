@@ -45,14 +45,14 @@ class Conv2dLSTMCell(nn.Module):
         """
         (hidden, cell) = states
 
-        forget_gate = F.sigmoid(self.forget(input))
-        input_gate  = F.sigmoid(self.input(input))
-        output_gate = F.sigmoid(self.output(input))
-        state_gate  = F.tanh(self.state(input))
+        forget_gate = torch.sigmoid(self.forget(input))
+        input_gate  = torch.sigmoid(self.input(input))
+        output_gate = torch.sigmoid(self.output(input))
+        state_gate  = torch.tanh(self.state(input))
 
         # Update internal cell state
         cell = forget_gate * cell + input_gate * state_gate
-        hidden = output_gate * F.tanh(cell)
+        hidden = output_gate * torch.tanh(cell)
 
         return hidden, cell
 
@@ -147,7 +147,7 @@ class RecurrentAutoEncoder2D(nn.Module):
 
         x_mu = self.observation_density(u)
 
-        return F.sigmoid(x_mu), kl
+        return torch.sigmoid(x_mu), kl
 
     def sample(self, x_shape, v, r):
         """
@@ -186,4 +186,4 @@ class RecurrentAutoEncoder2D(nn.Module):
 
         x_mu = self.observation_density(u)
 
-        return F.sigmoid(x_mu)
+        return torch.sigmoid(x_mu)
