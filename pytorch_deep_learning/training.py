@@ -66,11 +66,11 @@ class ModelTrainer(BatchTrainer):
         self.mu, self.sigma = mu, sigma
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.mu)
 
-    def should_save_image(self, step, max_gradient_steps, periodic_step=1000):
-        return step % periodic_step == 0
+    def should_save_image(self, step, max_gradient_steps, periodic_step=100):
+        return (step % periodic_step == 0) or (step + 1 > max_gradient_steps)
 
-    def should_save_checkpoint(self, step, max_gradient_steps, periodic_checkpoint=1000):
-        return (step % periodic_checkpoint == 0) or (step + 1 >= max_gradient_steps)
+    def should_save_checkpoint(self, step, max_gradient_steps, periodic_checkpoint=100):
+        return (step % periodic_checkpoint == 0) or (step + 1 > max_gradient_steps)
 
     def anneal_learning_rate(self, step):
         # Anneal learning rate
