@@ -48,4 +48,4 @@ if __name__=="__main__":
     model = GenerativeQueryNetwork(x_dim=3, v_dim=7, r_dim=256, h_dim=128, z_dim=64, L=12)
     #
     model_trainer = ModelTrainer(model, dataset, device, mu=mu_f, sigma=sigma_f)
-    model_trainer.train(args.iterations)
+    model_trainer.train(args.iterations, args.model_path)
