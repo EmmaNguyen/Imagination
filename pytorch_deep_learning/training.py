@@ -1,3 +1,4 @@
+import os
 import math
 from tqdm import tqdm
 
@@ -7,6 +8,7 @@ from torch.distributions import Normal
 from torchvision.utils import save_image
 
 from pytorch_deep_learning.utils.logging import get_finish_time
+from utils.metric import gw_2
 
 mu_f, mu_i = 4*9**(-6), 4*9**(-5)
 sigma_f, sigma_i = -1.6, 1.-1
@@ -65,11 +67,11 @@ class ModelTrainer(BatchTrainer):
         self.mu, self.sigma = mu, sigma
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=self.mu)
 
-    def should_save_image(self, step, max_gradient_steps, periodic_step=1000):
-        return step % periodic_step == 0
+    def should_save_image(self, step, max_gradient_steps, periodic_step=100):
+        return (step % periodic_step == 0) or (step + 1 > max_gradient_steps)
 
-    def should_save_checkpoint(self, step, max_gradient_steps, periodic_checkpoint=1000):
-        return (step % periodic_checkpoint == 0) or (step + 1 >= max_gradient_steps)
+    def should_save_checkpoint(self, step, max_gradient_steps, periodic_checkpoint=100):
+        return (step % periodic_checkpoint == 0) or (step + 1 > max_gradient_steps)
 
     def anneal_learning_rate(self, step):
         # Anneal learning rate
@@ -79,12 +81,18 @@ class ModelTrainer(BatchTrainer):
     def anneal_pixel_variance(self, step):
         self.sigma = max(sigma_f + (sigma_i - sigma_f)*(1 - step/(2 * 10**5)), sigma_f)
 
-    def train(self, max_gradient_steps):
+    def train(self, max_gradient_steps, model_path):
+        try:
+            os.makedirs(model_path)
+        except FileExistsError:
+            pass
+
         for step in range(1, max_gradient_steps+1):
             for image_batch, viewpoint_batch in tqdm(self.data_loader):
                 eval_batch = self.train_on_batch(image_batch, viewpoint_batch)
-                if self.should_save_checkpoint(step, max_gradient_steps):
-                    torch.save(self.model, "{}_step_{}.pt".format(step, get_finish_time))
+
+            if self.should_save_checkpoint(step, max_gradient_steps):
+                torch.save(self.model, "{}/{}_step_{}.pt".format(model_path, step, get_finish_time()))
 
             with torch.no_grad():
                 test_image, test_pointview = next(iter(self.data_loader))
@@ -92,8 +100,10 @@ class ModelTrainer(BatchTrainer):
                 test_reconstruction = test_eval['reconstruction']
                 test_representation = test_eval['representation'].view(-1, 1, 16, 16)
                 if self.should_save_image(step, max_gradient_steps):
-                    save_image(test_reconstruction.float(), "{}_step_{}_reconstruction.jpg".format(step, get_finish_time))
-                    save_image(test_representation.float(), "{}_step_{}_representation.jpg".format(step, get_finish_time))
+                    save_image(test_reconstruction.float(), \
+                        "{}/{}_step_{}_reconstruction.jpg".format(model_path, step, get_finish_time()))
+                    save_image(test_representation.float(), \
+                        "{}/{}_step_{}_representation.jpg".format(model_path, step, get_finish_time()))
 
                 self.anneal_learning_rate(step)
                 self.anneal_pixel_variance(step)
