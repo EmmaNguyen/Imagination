@@ -99,10 +99,10 @@ class RecurrentAutoEncoder2D(nn.Module):
         :param x: image to send through
         :param v: viewpoint of image
         :param r: representation for image
-        :return reconstruction of x and kl-divergence
+        :return reconstruction of x and global_loss
         """
         batch_size, _, h, w = x.size()
-        kl = 0
+        global_loss = 0
 
         # Increase dimensions
         v = v.view(batch_size, -1, 1, 1).repeat(1, 1, h//SCALE, w//SCALE)
@@ -143,11 +143,11 @@ class RecurrentAutoEncoder2D(nn.Module):
             u = self.upsample(hidden_g) + u
 
             # Calculate KL-divergence
-            kl += kl_divergence(posterior_distribution, prior_distribution)
+            global_loss += topological_entropy(posterior_distribution, prior_distribution)
 
         x_mu = self.observation_density(u)
 
-        return torch.sigmoid(x_mu), kl
+        return torch.sigmoid(x_mu), global_loss
 
     def sample(self, x_shape, v, r):
         """

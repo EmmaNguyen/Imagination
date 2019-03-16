@@ -40,16 +40,16 @@ class BatchTrainer:
 
     def eval_on_batch(self, images, viewpoints):
         images, viewpoints = images.to(self._device), viewpoints.to(self._device)
-        reconstructions, query_viewpoints, representation, topological_entropy = self.model(images, viewpoints)
+        reconstructions, query_viewpoints, representation, global_loss = self.model(images, viewpoints)
         # If more than one GPU we must take new shape into account
         batch_size = query_viewpoints.size(0)
 
         structure_loss = gw(images, viewpoints, reconstructions, query_viewpoints)
-        topological_entropy = torch.mean(topological_entropy.view(batch_size, -1), dim=0).sum()
-        loss = structure_loss + topological_entropy
+        global_loss = torch.mean(global_loss.view(batch_size, -1), dim=0).sum()
+        loss = structure_loss + global_loss
         return {'loss': loss,
                 'structure_loss': structure_loss,
-                'topological_entropy': topological_entropy,
+                'global_loss': global_loss,
                 'reconstruction': reconstructions,
                 'viewpoints': viewpoints,
                 'representation': representation}
