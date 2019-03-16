@@ -8,7 +8,7 @@ from torch.distributions import Normal
 from torchvision.utils import save_image
 
 from pytorch_deep_learning.utils.logging import get_finish_time
-from utils.metric import gw_2
+from utils.metric import gw2
 
 mu_f, mu_i = 4*9**(-6), 4*9**(-5)
 sigma_f, sigma_i = -1.6, 1.-1
@@ -44,7 +44,7 @@ class BatchTrainer:
         # If more than one GPU we must take new shape into account
         batch_size = query_viewpoints.size(0)
 
-        structure_loss = gw(images, viewpoints, reconstructions, query_viewpoints)
+        structure_loss = gw2(images, viewpoints, reconstructions, query_viewpoints)
         global_loss = torch.mean(global_loss.view(batch_size, -1), dim=0).sum()
         loss = structure_loss + global_loss
         return {'loss': loss,
