@@ -57,7 +57,7 @@ class BatchTrainer:
 class ModelTrainer(BatchTrainer):
 
     def __init__(self, model, dataset, device, mu, sigma):
-        # super(ModelTrainer, self).__init__()
+        super(ModelTrainer, self).__init__()
         self.model = model.to(device)
         self._device = device
         self.data_loader = DataLoader(dataset, batch_size=48, shuffle=True)
