@@ -30,20 +30,3 @@ def gw2(images, viewpoints, reconstructions, query_viewpoints):
             q = unif(28)
             gw_dist[i] = gromov_wasserstein2(C1, C2, p, q, loss_fun='square_loss', epsilon=5e-4)
             return Variable(Tensor(gw_dist), requires_grad=False)
-
-def topological_entropy(prior_distribution, posterior_distribution):
-    """
-    Args:
-        prior: a Conv2d
-        poster: a Conv2d
-    Return:
-        score
-    """
-    if torch.cuda.is_available():
-        rlts1 = rlts(X.data.cpu().numpy(), n=mb_size)
-        rlts2 = rlts(Y.data.cpu().numpy(), n=mb_size)
-    else:
-        rlts1 = rlts(X.data.numpy(), n=mb_size)
-        rlts2 = rlts(Y.data.numpy(), n=mb_size)
-    return Variable(Tensor(geom_score(rlts1, rlts2)),
-                    requires_grad=False).sum()
