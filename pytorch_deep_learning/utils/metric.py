@@ -1,9 +1,13 @@
 from ot import gromov_wasserstein2
 
-def l2_distance(X, Y):
-    return torch.sum((X - Y)**2, 1)
-
-def geometry_score(X, Y):
+def topological_entropy(prior, posterior):
+    """
+    Args:
+        prior:
+        poster:
+    Return:
+        score
+    """
     if torch.cuda.is_available():
         rlts1 = rlts(X.data.cpu().numpy(), n=mb_size)
         rlts2 = rlts(Y.data.cpu().numpy(), n=mb_size)
