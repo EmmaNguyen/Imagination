@@ -69,11 +69,11 @@ class GenerativeQueryNetwork(nn.Module):
 
         # Use random (image, viewpoint) pair in batch as query
         x_q, v_q = images[:, query_idx], viewpoints[:, query_idx]
-        x_mu, kl = self.generator(x_q, v_q, r)
+        x_mu, topological_entropy = self.generator(x_q, v_q, r)
 
         # Return reconstruction and query viewpoint
         # for computing error
-        return [x_mu, x_q, r, kl]
+        return [x_mu, x_q, r, topological_entropy]
 
     def sample(self, context_x, context_v, viewpoint, sigma):
         """
