@@ -40,19 +40,16 @@ class BatchTrainer:
 
     def eval_on_batch(self, images, viewpoints):
         images, viewpoints = images.to(self._device), viewpoints.to(self._device)
-        reconstructions, query_viewpoints, representation, kl_div = self.model(images, viewpoints)
+        reconstructions, query_viewpoints, representation, topological_entropy = self.model(images, viewpoints)
         # If more than one GPU we must take new shape into account
         batch_size = query_viewpoints.size(0)
 
-        negative_log = -Normal(reconstructions, self.sigma).log_prob(query_viewpoints)
-
-        reconstruction = torch.mean(negative_log.view(batch_size, -1), dim=0).sum()
-        kl_div  = torch.mean(kl_div.view(batch_size, -1), dim=0).sum()
-
-        evidence_lower_bound = negative_log + kl_div
-        return {'evidence_lower_bound': evidence_lower_bound,
-                'kl_divergence': kl_div,
-                'negative_log': negative_log,
+        structure_loss = gw(images, viewpoints, reconstructions, query_viewpoints)
+        topological_entropy = torch.mean(topological_entropy.view(batch_size, -1), dim=0).sum()
+        loss = structure_loss + topological_entropy
+        return {'loss': loss,
+                'structure_loss': structure_loss,
+                'topological_entropy': topological_entropy,
                 'reconstruction': reconstructions,
                 'viewpoints': viewpoints,
                 'representation': representation}
@@ -97,7 +94,7 @@ class ModelTrainer(BatchTrainer):
             with torch.no_grad():
                 test_image, test_pointview = next(iter(self.data_loader))
                 test_eval = self.test_on_batch(test_image, test_pointview)
-                test_reconstruction = test_eval['reconstruction']
+                test_reconstruction = test_eval['loss']
                 test_representation = test_eval['representation'].view(-1, 1, 16, 16)
                 if self.should_save_image(step, max_gradient_steps):
                     save_image(test_reconstruction.float(), \
