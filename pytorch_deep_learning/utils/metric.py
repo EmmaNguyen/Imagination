@@ -11,9 +11,9 @@ def geometry_score(X, Y):
         rlts1 = rlts(X.data.numpy(), n=mb_size)
         rlts2 = rlts(Y.data.numpy(), n=mb_size)
     return Variable(Tensor(geom_score(rlts1, rlts2)),
-                    requires_grad=False)
+                    requires_grad=False).sum()
 
-def gromov_wasserstein_distance(X, Y):
+def gw2(images, viewpoints, reconstructions, query_viewpoints):
     import concurrent.futures
     gw_dist = np.zeros(mb_size)
     with concurrent.futures.ProcessPoolExecutor() as executor:
